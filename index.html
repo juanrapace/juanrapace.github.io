@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title/>Rinćon Matemático</title>
+  <title>Clases de Matemáticas | Juan Carlos Rincón</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
@@ -16,6 +15,7 @@
       --gray: #64748b;
       --border: #e2e8f0;
       --success: #16a34a;
+      --whatsapp: #25D366;
       --radius: 12px;
       --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
     }
@@ -38,6 +38,8 @@
     .btn:hover { background: var(--primary-dark); transform: translateY(-2px); }
     .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); }
     .btn-outline:hover { background: var(--primary); color: white; }
+    .btn-whatsapp { background: var(--whatsapp); }
+    .btn-whatsapp:hover { background: #1da851; }
 
     /* Header */
     header { background: white; position: sticky; top: 0; z-index: 100; box-shadow: var(--shadow); }
@@ -104,6 +106,20 @@
     .footer-links a { color: #cbd5e1; transition: color 0.2s; }
     .footer-links a:hover { color: white; }
 
+    /* WhatsApp Floating Button */
+    .whatsapp-float {
+      position: fixed; bottom: 24px; right: 24px; width: 60px; height: 60px;
+      background: var(--whatsapp); border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 14px rgba(37, 211, 102, 0.4); z-index: 999; transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .whatsapp-float:hover { transform: scale(1.08); box-shadow: 0 6px 18px rgba(37, 211, 102, 0.5); }
+    .whatsapp-float svg { width: 32px; height: 32px; fill: white; }
+    .whatsapp-tooltip {
+      position: absolute; right: 70px; background: var(--secondary); color: white;
+      padding: 6px 12px; border-radius: 8px; font-size: 0.85rem; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.2s;
+    }
+    .whatsapp-float:hover .whatsapp-tooltip { opacity: 1; }
+
     /* Responsive */
     @media (max-width: 768px) {
       .nav-links { display: none; position: absolute; top: 70px; left: 0; width: 100%; background: white; flex-direction: column; padding: 20px; box-shadow: var(--shadow); }
@@ -113,6 +129,8 @@
       h2 { font-size: 1.8rem; }
       .about-content { grid-template-columns: 1fr; }
       .hero-buttons { flex-direction: column; align-items: center; }
+      .whatsapp-float { bottom: 16px; right: 16px; width: 54px; height: 54px; }
+      .whatsapp-tooltip { display: none; }
     }
   </style>
 </head>
@@ -120,7 +138,7 @@
 
   <header>
     <nav class="container">
-      <div class="logo">📐 Rincón Matemático</div>
+      <div class="logo">📐 Rincón Matemético</div>
       <ul class="nav-links" id="navLinks">
         <li><a href="#inicio">Inicio</a></li>
         <li><a href="#clases">Clases</a></li>
@@ -137,7 +155,8 @@
       <h1>Domina las <span>Matemáticas</span> con clases personalizadas</h1>
       <p>Aprende a tu ritmo, con explicaciones claras y métodos prácticos que te harán ganar confianza y mejorar tus notas.</p>
       <div class="hero-buttons">
-        <a href="#contacto" class="btn">Reserva tu primera clase gratis</a>
+        <!-- 🔥 CAMBIA EL NÚMERO EN EL JS O AQUÍ DIRECTAMENTE -->
+        <a href="#contacto" class="btn btn-whatsapp">💬 Escríbeme por WhatsApp</a>
         <a href="#clases" class="btn btn-outline">Ver niveles y formatos</a>
       </div>
     </div>
@@ -183,9 +202,7 @@
           <br>
           <a href="#contacto" class="btn">Agenda una evaluación gratuita</a>
         </div>
-         <div class="foto_pag_web">
-    <img src="https://github.com/juanrapace/juanrapace.github.io/raw/main/foto_pag_web.jpg" alt="CLASES" width="100%">
-</div>
+        <div class="about-img">foto_pag_web.jpeg</div>
       </div>
     </div>
   </section>
@@ -202,7 +219,7 @@
             <li>Material de apoyo en PDF</li>
             <li>Resolución de dudas por email</li>
           </ul>
-          <a href="#contacto" class="btn btn-outline">Elegir plan</a>
+          <a href="#contacto" class="btn btn-outline btn-whatsapp">Reservar por WhatsApp</a>
         </div>
         <div class="price-card popular">
           <h3>Estándar</h3>
@@ -213,7 +230,7 @@
             <li>Simulacros de examen</li>
             <li>Soporte por WhatsApp</li>
           </ul>
-          <a href="#contacto" class="btn">Elegir plan</a>
+          <a href="#contacto" class="btn btn-whatsapp">Reservar por WhatsApp</a>
         </div>
         <div class="price-card">
           <h3>Premium</h3>
@@ -224,7 +241,7 @@
             <li>Plan de estudio a medida</li>
             <li>Garantía de mejora o clase extra</li>
           </ul>
-          <a href="#contacto" class="btn btn-outline">Elegir plan</a>
+          <a href="#contacto" class="btn btn-outline btn-whatsapp">Reservar por WhatsApp</a>
         </div>
       </div>
     </div>
@@ -262,29 +279,33 @@
           <input type="text" id="name" required placeholder="Tu nombre">
         </div>
         <div class="form-group">
-          <label for="email">Correo electrónico</label>
-          <input type="email" id="email" required placeholder="tu@email.com">
-        </div>
-        <div class="form-group">
           <label for="level">Nivel académico</label>
           <select id="level" required>
             <option value="">Selecciona...</option>
-            <option value="primaria">Primaria</option>
-            <option value="eso"> </option>
-            <option value="bachillerato">Bachillerato </option>
-            <option value="universidad">Universidad</option>
-            <option value="adultos">Adultos / Oposiciones</option>
+            <option value="Primaria">Primaria</option>
+            <option value="ESO"> </option>
+            <option value="Bachillerato/Selectividad">Bachillerato </option>
+            <option value="Universidad">Universidad</option>
+            <option value="Adultos/Oposiciones">Adultos / Oposiciones</option>
           </select>
         </div>
         <div class="form-group">
           <label for="message">Mensaje o dudas</label>
           <textarea id="message" rows="4" placeholder="Cuéntame tu objetivo, disponibilidad o preguntas..."></textarea>
         </div>
-        <button type="submit" class="btn" style="width: 100%;">Enviar solicitud</button>
+        <button type="submit" class="btn btn-whatsapp" style="width: 100%;">📩 Enviar por WhatsApp</button>
         <div class="form-status" id="formStatus"></div>
       </form>
     </div>
   </section>
+
+  <!-- Botón flotante de WhatsApp -->
+  <a href="#" class="whatsapp-float" id="whatsappFloat" aria-label="Contactar por WhatsApp">
+    <span class="whatsapp-tooltip">¿Dudas? Escríbeme</span>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
 
   <footer>
     <div class="container">
@@ -294,18 +315,20 @@
         <a href="#precios">Precios</a>
         <a href="#contacto">Contacto</a>
       </div>
-      <p>📧 juanrapace@gmail.com| 📱57+3232014169</p>
-      <p style="margin-top: 16px; opacity: 0.8;">© <span id="year"></span> Juan Carlos Rincón. Todos los derechos reservados.</p>
+      <p>📱 +34 600 000 000 (WhatsApp) | 📧 contacto@matescon[nombre].com</p>
+      <p style="margin-top: 16px; opacity: 0.8;">© <span id="year"></span> [Tu Nombre]. Todos los derechos reservados.</p>
     </div>
   </footer>
 
   <script>
+    // 🔥 CONFIGURACIÓN: Cambia este número por el tuyo (con código de país, sin + ni espacios)
+    const WHATSAPP_NUMBER = "34600000000"; 
+    const WHATSAPP_DEFAULT_MSG = "Hola, me interesan tus clases de matemáticas. ¿Podrías darme más información?";
+
     // Menú móvil
     const menuToggle = document.getElementById('menuToggle');
     const navLinks = document.getElementById('navLinks');
     menuToggle.addEventListener('click', () => navLinks.classList.toggle('active'));
-
-    // Cerrar menú al hacer click en un enlace
     document.querySelectorAll('.nav-links a').forEach(link => {
       link.addEventListener('click', () => navLinks.classList.remove('active'));
     });
@@ -313,33 +336,42 @@
     // Año dinámico
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Simulación de envío de formulario
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const status = document.getElementById('formStatus');
-      const btn = this.querySelector('button[type="submit"]');
-      
-      btn.disabled = true;
-      btn.textContent = 'Enviando...';
-      status.textContent = '';
-      status.className = 'form-status';
-
-      // Simula petición (reemplaza con fetch a tu backend o servicio como Formspree/Netlify Forms)
-      setTimeout(() => {
-        status.textContent = '✅ ¡Mensaje enviado! Te responderé en menos de 24h.';
-        status.className = 'form-status success';
-        this.reset();
-        btn.disabled = false;
-        btn.textContent = 'Enviar solicitud';
-      }, 1500);
-    });
-
     // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
         e.preventDefault();
         document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
       });
+    });
+
+    // Función para abrir WhatsApp
+    function openWhatsApp(text = WHATSAPP_DEFAULT_MSG) {
+      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+      window.open(url, '_blank');
+    }
+
+    // Botón flotante
+    document.getElementById('whatsappFloat').addEventListener('click', (e) => {
+      e.preventDefault();
+      openWhatsApp();
+    });
+
+    // Formulario -> WhatsApp
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const level = document.getElementById('level').value;
+      const message = document.getElementById('message').value;
+      
+      const customText = `Hola, soy ${name}. Me interesan tus clases (Nivel: ${level}).\n${message}`;
+      openWhatsApp(customText);
+      
+      // Feedback visual
+      const status = document.getElementById('formStatus');
+      status.textContent = "✅ Abriendo WhatsApp...";
+      status.className = "form-status success";
+      this.reset();
+      setTimeout(() => { status.textContent = ""; }, 3000);
     });
   </script>
 </body>
