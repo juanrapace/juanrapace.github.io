@@ -1,0 +1,344 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clases de Matemáticas | [Rinćon Matemático]</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --secondary: #0f172a;
+      --light: #f8fafc;
+      --gray: #64748b;
+      --border: #e2e8f0;
+      --success: #16a34a;
+      --radius: 12px;
+      --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', system-ui, sans-serif; color: var(--secondary); line-height: 1.6; background: var(--light); }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; height: auto; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    section { padding: 80px 0; }
+    h1, h2, h3 { line-height: 1.2; margin-bottom: 16px; }
+    h1 { font-size: 3rem; font-weight: 700; }
+    h2 { font-size: 2.2rem; text-align: center; margin-bottom: 40px; }
+    h3 { font-size: 1.4rem; }
+    p { color: var(--gray); margin-bottom: 16px; }
+    .btn {
+      display: inline-block; padding: 14px 28px; background: var(--primary); color: white;
+      border-radius: var(--radius); font-weight: 600; transition: all 0.2s;
+      border: none; cursor: pointer; font-size: 1rem;
+    }
+    .btn:hover { background: var(--primary-dark); transform: translateY(-2px); }
+    .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); }
+    .btn-outline:hover { background: var(--primary); color: white; }
+
+    /* Header */
+    header { background: white; position: sticky; top: 0; z-index: 100; box-shadow: var(--shadow); }
+    nav { display: flex; justify-content: space-between; align-items: center; height: 70px; }
+    .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); }
+    .nav-links { display: flex; gap: 24px; list-style: none; }
+    .nav-links a { font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--primary); }
+    .menu-toggle { display: none; font-size: 1.8rem; cursor: pointer; }
+
+    /* Hero */
+    .hero { background: linear-gradient(135deg, #eff6ff 0%, #ffffff 100%); text-align: center; padding: 120px 0 80px; }
+    .hero h1 span { color: var(--primary); }
+    .hero p { font-size: 1.25rem; max-width: 700px; margin: 0 auto 32px; }
+    .hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+    /* Services */
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+    .card { background: white; padding: 28px; border-radius: var(--radius); box-shadow: var(--shadow); transition: transform 0.2s; }
+    .card:hover { transform: translateY(-5px); }
+    .icon { font-size: 2.5rem; margin-bottom: 16px; }
+
+    /* About */
+    .about-content { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+    .about-img { background: #cbd5e1; height: 300px; border-radius: var(--radius); display: flex; align-items: center; justify-content: center; color: var(--gray); font-style: italic; }
+
+    /* Pricing */
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+    .price-card { background: white; padding: 32px; border-radius: var(--radius); box-shadow: var(--shadow); text-align: center; border: 2px solid transparent; }
+    .price-card.popular { border-color: var(--primary); position: relative; }
+    .price-card.popular::before {
+      content: "Más elegido"; position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+      background: var(--primary); color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;
+    }
+    .price { font-size: 2.5rem; font-weight: 700; color: var(--secondary); margin: 16px 0; }
+    .price span { font-size: 1rem; color: var(--gray); font-weight: 400; }
+    .features { list-style: none; margin: 24px 0; text-align: left; }
+    .features li { padding: 8px 0; border-bottom: 1px solid var(--border); }
+    .features li::before { content: "✓"; color: var(--success); margin-right: 8px; font-weight: bold; }
+
+    /* Testimonials */
+    .testimonials { background: white; }
+    .testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+    .testimonial { background: var(--light); padding: 24px; border-radius: var(--radius); border-left: 4px solid var(--primary); }
+    .author { font-weight: 600; margin-top: 16px; color: var(--secondary); }
+    .role { font-size: 0.9rem; color: var(--gray); }
+
+    /* Contact */
+    .contact-form { max-width: 600px; margin: 0 auto; background: white; padding: 32px; border-radius: var(--radius); box-shadow: var(--shadow); }
+    .form-group { margin-bottom: 20px; }
+    label { display: block; margin-bottom: 8px; font-weight: 500; }
+    input, select, textarea {
+      width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px;
+      font-family: inherit; font-size: 1rem; transition: border 0.2s;
+    }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); }
+    .form-status { margin-top: 12px; text-align: center; font-weight: 500; min-height: 24px; }
+    .success { color: var(--success); }
+    .error { color: #dc2626; }
+
+    /* Footer */
+    footer { background: var(--secondary); color: white; padding: 40px 0; text-align: center; }
+    .footer-links { display: flex; justify-content: center; gap: 20px; margin-bottom: 20px; flex-wrap: wrap; }
+    .footer-links a { color: #cbd5e1; transition: color 0.2s; }
+    .footer-links a:hover { color: white; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-links { display: none; position: absolute; top: 70px; left: 0; width: 100%; background: white; flex-direction: column; padding: 20px; box-shadow: var(--shadow); }
+      .nav-links.active { display: flex; }
+      .menu-toggle { display: block; }
+      h1 { font-size: 2.2rem; }
+      h2 { font-size: 1.8rem; }
+      .about-content { grid-template-columns: 1fr; }
+      .hero-buttons { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <nav class="container">
+      <div class="logo">📐 MatesCon[Rincón Matemático]</div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#clases">Clases</a></li>
+        <li><a href="#metodologia">Metodología</a></li>
+        <li><a href="#precios">Precios</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+      <div class="menu-toggle" id="menuToggle">☰</div>
+    </nav>
+  </header>
+
+  <section class="hero" id="inicio">
+    <div class="container">
+      <h1>Domina las <span>Matemáticas</span> con clases personalizadas</h1>
+      <p>Aprende a tu ritmo, con explicaciones claras y métodos prácticos que te harán ganar confianza y mejorar tus notas.</p>
+      <div class="hero-buttons">
+        <a href="#contacto" class="btn">Reserva tu primera clase gratis</a>
+        <a href="#clases" class="btn btn-outline">Ver niveles y formatos</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="clases">
+    <div class="container">
+      <h2>¿Qué tipo de clases ofrezco?</h2>
+      <div class="services-grid">
+        <div class="card">
+          <div class="icon">📚</div>
+          <h3>Primaria y ESO</h3>
+          <p>Refuerzo de fundamentos, resolución de dudas y hábitos de estudio efectivos.</p>
+        </div>
+        <div class="card">
+          <div class="icon">🎓</div>
+          <h3>Bachillerato y PAU/EBAU</h3>
+          <p>Preparación específica para selectividad y exámenes de acceso a la universidad.</p>
+        </div>
+        <div class="card">
+          <div class="icon">🏫</div>
+          <h3>Universidad</h3>
+          <p>Cálculo, álgebra lineal, estadística y matemáticas aplicadas a ingenierías y ciencias.</p>
+        </div>
+        <div class="card">
+          <div class="icon">💻</div>
+          <h3>Online o Presencial</h3>
+          <p>Clases por videollamada con pizarra digital compartida o en persona en tu zona.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="metodologia" style="background: white;">
+    <div class="container">
+      <h2>Mi método de enseñanza</h2>
+      <div class="about-content">
+        <div>
+          <p>🔍 <strong>Diagnóstico inicial:</strong> Identifico tus fortalezas y áreas de mejora en la primera sesión.</p>
+          <p>📝 <strong>Clases prácticas:</strong> Menos teoría abstracta, más ejercicios guiados y resolución paso a paso.</p>
+          <p>📈 <strong>Seguimiento continuo:</strong> Material propio, ejercicios extra y revisiones semanales de progreso.</p>
+          <p>🤝 <strong>Enfoque empático:</strong> Creo firmemente que todos pueden entender las matemáticas con la guía adecuada.</p>
+          <br>
+          <a href="#contacto" class="btn">Agenda una evaluación gratuita</a>
+        </div>
+        <div class="about-img">[Aquí puedes poner tu foto o un gráfico]</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="precios">
+    <div class="container">
+      <h2>Planes y precios</h2>
+      <div class="pricing-grid">
+        <div class="price-card">
+          <h3>Básico</h3>
+          <div class="price">20€ <span>/hora</span></div>
+          <ul class="features">
+            <li>Clases individuales online</li>
+            <li>Material de apoyo en PDF</li>
+            <li>Resolución de dudas por email</li>
+          </ul>
+          <a href="#contacto" class="btn btn-outline">Elegir plan</a>
+        </div>
+        <div class="price-card popular">
+          <h3>Estándar</h3>
+          <div class="price">18€ <span>/hora</span></div>
+          <ul class="features">
+            <li>Pack de 5 horas</li>
+            <li>Seguimiento personalizado</li>
+            <li>Simulacros de examen</li>
+            <li>Soporte por WhatsApp</li>
+          </ul>
+          <a href="#contacto" class="btn">Elegir plan</a>
+        </div>
+        <div class="price-card">
+          <h3>Premium</h3>
+          <div class="price">15€ <span>/hora</span></div>
+          <ul class="features">
+            <li>Pack de 10+ horas</li>
+            <li>Clases presenciales u online</li>
+            <li>Plan de estudio a medida</li>
+            <li>Garantía de mejora o clase extra</li>
+          </ul>
+          <a href="#contacto" class="btn btn-outline">Elegir plan</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonials">
+    <div class="container">
+      <h2>Lo que dicen mis alumnos</h2>
+      <div class="testimonial-grid">
+        <div class="testimonial">
+          <p>“Pasé de sacar un 3 a un 8 en el examen de selectividad. La paciencia y claridad son increíbles.”</p>
+          <div class="author">Lucía M.</div>
+          <div class="role">Alumna de 2º Bachillerato</div>
+        </div>
+        <div class="testimonial">
+          <p>“Mi hijo recuperó la confianza en sí mismo. Las clases online son muy dinámicas y bien organizadas.”</p>
+          <div class="author">Carlos R.</div>
+          <div class="role">Padre de alumno de 4º ESO</div>
+        </div>
+        <div class="testimonial">
+          <p>“Aprobé Cálculo I a la primera gracias a los ejercicios prácticos y los resúmenes que me preparaba.”</p>
+          <div class="author">Andrea T.</div>
+          <div class="role">Estudiante de Ingeniería</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacto">
+    <div class="container">
+      <h2>Reserva tu clase o hazme una consulta</h2>
+      <form class="contact-form" id="contactForm">
+        <div class="form-group">
+          <label for="name">Nombre completo</label>
+          <input type="text" id="name" required placeholder="Tu nombre">
+        </div>
+        <div class="form-group">
+          <label for="email">Correo electrónico</label>
+          <input type="email" id="email" required placeholder="tu@email.com">
+        </div>
+        <div class="form-group">
+          <label for="level">Nivel académico</label>
+          <select id="level" required>
+            <option value="">Selecciona...</option>
+            <option value="primaria">Primaria</option>
+            <option value="eso">ESO</option>
+            <option value="bachillerato">Bachillerato / Selectividad</option>
+            <option value="universidad">Universidad</option>
+            <option value="adultos">Adultos / Oposiciones</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Mensaje o dudas</label>
+          <textarea id="message" rows="4" placeholder="Cuéntame tu objetivo, disponibilidad o preguntas..."></textarea>
+        </div>
+        <button type="submit" class="btn" style="width: 100%;">Enviar solicitud</button>
+        <div class="form-status" id="formStatus"></div>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-links">
+        <a href="#inicio">Inicio</a>
+        <a href="#clases">Clases</a>
+        <a href="#precios">Precios</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+      <p>📧 juanrapace@gmail.com| 📱57+3232014169</p>
+      <p style="margin-top: 16px; opacity: 0.8;">© <span id="year"></span> [Tu Nombre]. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Menú móvil
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    menuToggle.addEventListener('click', () => navLinks.classList.toggle('active'));
+
+    // Cerrar menú al hacer click en un enlace
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => navLinks.classList.remove('active'));
+    });
+
+    // Año dinámico
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Simulación de envío de formulario
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const status = document.getElementById('formStatus');
+      const btn = this.querySelector('button[type="submit"]');
+      
+      btn.disabled = true;
+      btn.textContent = 'Enviando...';
+      status.textContent = '';
+      status.className = 'form-status';
+
+      // Simula petición (reemplaza con fetch a tu backend o servicio como Formspree/Netlify Forms)
+      setTimeout(() => {
+        status.textContent = '✅ ¡Mensaje enviado! Te responderé en menos de 24h.';
+        status.className = 'form-status success';
+        this.reset();
+        btn.disabled = false;
+        btn.textContent = 'Enviar solicitud';
+      }, 1500);
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  </script>
+</body>
+</html>
